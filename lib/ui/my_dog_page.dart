@@ -18,7 +18,12 @@ class MyDogPage extends StatelessWidget {
               return const CircularProgressIndicator();
             }
             if (state is DogLoaded) {
-              return Image.network(state.imageUrl);
+              return Image.network(
+                state.imageUrl,
+                webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
+                errorBuilder: (context, error, stackTrace) =>
+                    const Text('Не удалось показать картинку'),
+              );
             }
             if (state is DogError) {
               return const Text('Ошибка загрузки');
